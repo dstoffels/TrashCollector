@@ -30,7 +30,7 @@ It is your task to build out the employee-side of this application to allow empl
 
 <!-- (10 points): As a registered employee, I want a button/link displayed with each pickup in my daily list that I can click to “confirm” a pickup. -->
 
-(5 points): As a registered employee, I want all confirmed pickups to have a charge of $20 applied to the customer.
+<!-- (5 points): As a registered employee, I want all confirmed pickups to have a charge of $20 applied to the customer. -->
 
 (10 points): As a registered employee, I want to be able to choose a day of the week to filter by, and see all customers who gets a weekly pickup on the day selected. (One-time pickups do NOT need to be displayed)
 

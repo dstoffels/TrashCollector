@@ -27,7 +27,7 @@ def index(request):
         today = date.today().strftime('%A')
         todays_date = date.today()
 
-        todays_customers = Customer.objects.filter(Q(weekly_pickup=today, zip_code=logged_in_employee.zip_code) | Q(one_time_pickup=todays_date)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date)
+        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=today)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date)
 
         context = {
             'logged_in_employee': logged_in_employee,
@@ -42,6 +42,7 @@ def confirm_pickup(request, id):
     Customer = apps.get_model('customers.Customer')
     customer = Customer.objects.get(pk=id)
     customer.date_of_last_pickup = date.today()
+    customer.balance += 20
     customer.save()
     return HttpResponseRedirect(reverse('employees:index'))
 
