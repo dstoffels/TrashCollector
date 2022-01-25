@@ -1,7 +1,32 @@
-{% extends 'base.html' %} {% block title %} {% block header %} Employee
-Home{%endblock %} {% endblock %} {% block content %} {% if user.is_authenticated
-%}Hello {{ user.username }}! {% else %}
-<p>You are at the employee index, but you are not logged in.</p>
-<a href="{% url 'login' %}">Log In</a>
-<a href="{% url 'accounts:register' %}">Sign Up </a>
-{% endif %} {% endblock %}
+{% extends 'employees/employee_base.html' %}
+
+{% block title %} Employee Home {% endblock %}
+
+{% block header %} Employee Portal {% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        Hello, {{ logged_in_employee.first_name }}!<br />
+        <table class="center-table">
+            <thead>
+                <tr>
+                    <th>Customer Name</th><th>Address</th><th>Zip Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <td>{{customer.name}}</td><td>{{customer.address}}</td><td>{{customer.zip_code}}</td><td><a class="btn btn-primary" type="button" href="{% url 'employees:confirm_pickup' customer.id %}">Confirm pickup</a>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You are at the employee home page, but you are not logged in.</p>
+        <a href="{% url 'login' %}">Log In</a>
+        <a href="{% url 'accounts:register' %}">Sign Up</a>
+  {% endif %}
+{% endblock %}
+
+
+

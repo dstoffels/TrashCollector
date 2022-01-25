@@ -14,11 +14,11 @@ It is your task to build out the employee-side of this application to allow empl
 
 **_(5 points): As a developer, I want to adhere to the naming conventions & best practices established in the starter code so that my code will seamlessly integrate to the existing project landscape._**
 
-**_(10 points): As a newly-registered User, I want to complete the registration process and create my Employee profile._**
+<!-- (10 points): As a newly-registered User, I want to complete the registration process and create my Employee profile._** -->
 
-(5 points): As a registered employee, I want to be able to edit my employee information to change my name and/or zip code.
+<!-- (5 points): As a registered employee, I want to be able to edit my employee information to change my name and/or zip code. -->
 
-(20 points): As a registered employee, I want my index view to be a list of today’s customers who meet ALL the following criteria:
+<!-- (20 points): As a registered employee, I want my index view to be a list of today’s customers who meet ALL the following criteria:
 
 - Customers in my zip code
 
@@ -26,9 +26,9 @@ It is your task to build out the employee-side of this application to allow empl
 
 - Non-suspended accounts
 
-- Trash has not yet been picked up today
+- Trash has not yet been picked up today -->
 
-(10 points): As a registered employee, I want a button/link displayed with each pickup in my daily list that I can click to “confirm” a pickup.
+<!-- (10 points): As a registered employee, I want a button/link displayed with each pickup in my daily list that I can click to “confirm” a pickup. -->
 
 (5 points): As a registered employee, I want all confirmed pickups to have a charge of $20 applied to the customer.
 
