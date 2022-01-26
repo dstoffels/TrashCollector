@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 
 {% block navbar %}
-    <div class="dropdown">
-        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
-          View Pickups By Day
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Monday' %}">Monday</a></li>
-          <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Tuesday' %}">Tuesday</a></li>
-          <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Wednesday' %}">Wednesday</a></li>
-          <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Thursday' %}">Thursday</a></li>
-          <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Friday' %}">Friday</a></li>
-          <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Saturday' %}">Saturday</a></li>
-          <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Sunday' %}">Sunday</a></li>
-        </ul>
-    </div>
-    <a class="nav-item nav-link" href="{% url 'employees:edit_profile' %}">Edit Profile</a>
+<div class="dropdown">
+  <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+    View Pickups By Day
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Monday' %}">Monday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Tuesday' %}">Tuesday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Wednesday' %}">Wednesday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Thursday' %}">Thursday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Friday' %}">Friday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Saturday' %}">Saturday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Sunday' %}">Sunday</a></li>
+  </ul>
+</div>
+<a class="nav-item nav-link" href="{% url 'employees:edit_profile' %}">Edit Profile</a>
 {% endblock %}

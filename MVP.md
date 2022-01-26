@@ -12,7 +12,7 @@ It is your task to build out the employee-side of this application to allow empl
 
 <!-- (5 points): As a developer, I want to make good, consistent commits. -->
 
-**_(5 points): As a developer, I want to adhere to the naming conventions & best practices established in the starter code so that my code will seamlessly integrate to the existing project landscape._**
+<!-- **_(5 points): As a developer, I want to adhere to the naming conventions & best practices established in the starter code so that my code will seamlessly integrate to the existing project landscape._** -->
 
 <!-- (10 points): As a newly-registered User, I want to complete the registration process and create my Employee profile._** -->
 
@@ -36,7 +36,7 @@ It is your task to build out the employee-side of this application to allow empl
 
 <!-- (5 points): As an employee, I want to utilize an ‘employee_base.html’ parent template that includes a navbar to direct me to links for my default daily view, profile edit, and any other pages needed. -->
 
-(5 points): As a developer, I want to utilize the Bootstrap Content Delivery Network (CDN) on the base.html parent template to stylize my templates in an attractive manner.
+<!-- (5 points): As a developer, I want to utilize the Bootstrap Content Delivery Network (CDN) on the base.html parent template to stylize my templates in an attractive manner. -->
 
 **_Bonus User Stories (bonus points only earned if all base user stories attempted):_**
 

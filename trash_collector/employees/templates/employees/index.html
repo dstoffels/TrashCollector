@@ -8,6 +8,8 @@
 {% if user.is_authenticated %}
 <h3 class="mt-4 mb-5 fw-normal">Hello, {{ logged_in_employee.first_name }}!</h3>
 
+<div style="width: 500px; height: 400px" id="map"></div>
+
 <table class="table center-table table-dark align-middle">
   <thead>
     <tr>
@@ -23,9 +25,30 @@
       <td>{{customer.name}}</td>
       <td>{{customer.address}}</td>
       <td>{{customer.zip_code}}</td>
-      <td><a class="btn btn-primary float-end" type="button" href="{% url 'employees:confirm_pickup' customer.id %}">Confirm
+      <td><a class="btn btn-primary float-end" type="button"
+          href="{% url 'employees:confirm_pickup' customer.id %}">Confirm
           pickup</a>
     </tr>
+
+    <script type='text/javascript'>
+      var coords = {
+        lat: parseFloat("{{ customer.lat }}"),
+        lng: parseFloat("{{ customer.lng }}")
+      }
+
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: coords,
+        });
+
+        new google.maps.Marker({
+          position: coords,
+          map,
+          title: "{{ customer.name }}: {{ customer.address }}",
+        });
+      }
+    </script>
     {% endfor %}
   </tbody>
 </table>
@@ -34,4 +57,16 @@
 <a href="{% url 'login' %}">Log In</a>
 <a href="{% url 'accounts:register' %}">Sign Up</a>
 {% endif %}
+{% endblock %}
+
+{% block footer %}
+<script>
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJcgG_ZuV1DtM0lq7chYco4AI75_KPx3U&callback=initMap&v=weekly"
+  async>
+</script>
+
+
 {% endblock %}
