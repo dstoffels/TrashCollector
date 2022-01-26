@@ -17,9 +17,22 @@
     Zip Code: <input type="text" name="zip_code" id="zip_code" value="{{logged_in_customer.zip_code}}">
     <br />
     <br />
-    Weekly Pickup Day: <input type="text" name="weekly" id="weekly" value="{{logged_in_customer.weekly_pickup}}">
+    Weekly Pickup Day: 
+        <select class="custom-select my-1 mr-sm-2" name="weekly" id="weekly"> 
+            <option selected value="{{logged_in_customer.weekly_pickup}}">Choose...</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select>
+    <br />
     <br />
     <input type="submit" value="Submit">
 </form>
 
 {% endblock %}
+
+    
