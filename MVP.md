@@ -32,9 +32,9 @@ It is your task to build out the employee-side of this application to allow empl
 
 <!-- (5 points): As a registered employee, I want all confirmed pickups to have a charge of $20 applied to the customer. -->
 
-**_(10 points): As a registered employee, I want to be able to choose a day of the week to filter by, and see all customers who get a weekly pickup on the day selected._**
+<!-- **_(10 points): As a registered employee, I want to be able to choose a day of the week to filter by, and see all customers who get a weekly pickup on the day selected._** -->
 
-(5 points): As an employee, I want to utilize an ‘employee_base.html’ parent template that includes a navbar to direct me to links for my default daily view, profile edit, and any other pages needed.
+<!-- (5 points): As an employee, I want to utilize an ‘employee_base.html’ parent template that includes a navbar to direct me to links for my default daily view, profile edit, and any other pages needed. -->
 
 (5 points): As a developer, I want to utilize the Bootstrap Content Delivery Network (CDN) on the base.html parent template to stylize my templates in an attractive manner.
 
