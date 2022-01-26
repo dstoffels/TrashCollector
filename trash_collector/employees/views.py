@@ -1,4 +1,5 @@
 from datetime import date
+from time import strftime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
@@ -16,7 +17,7 @@ from .models import Employee
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
 @login_required
-def index(request):
+def index(request, day=date.today().strftime('%A')):
     Customer = apps.get_model('customers.Customer') 
     # The following line will get the logged-in user (if there is one) within any view function
     logged_in_user = request.user
@@ -24,14 +25,14 @@ def index(request):
         # This line will return the customer record of the logged-in user if one exists
         logged_in_employee = Employee.objects.get(user=logged_in_user)
 
-        today = date.today().strftime('%A')
         todays_date = date.today()
+        todays_date = todays_date if day == todays_date.strftime('%A') else date(1892,1,1)
 
-        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=today)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date)
+        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date)
 
         context = {
             'logged_in_employee': logged_in_employee,
-            'today': today,
+            'today': day,
             'customers': todays_customers
         }
         return render(request, 'employees/index.html', context)
@@ -46,9 +47,28 @@ def confirm_pickup(request, id):
     customer.save()
     return HttpResponseRedirect(reverse('employees:index'))
 
+def select_day(request, day): # FIXME: REFACTOR INTO index.html
+    Customer = apps.get_model('customers.Customer') 
+    # The following line will get the logged-in user (if there is one) within any view function
+    logged_in_user = request.user
+    try:
+        # This line will return the customer record of the logged-in user if one exists
+        logged_in_employee = Employee.objects.get(user=logged_in_user)
 
+        todays_date = date.today()
+        todays_date = todays_date if day == todays_date.strftime('%A') else date(1892,1,1)
 
+        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date)
 
+        context = {
+            'logged_in_employee': logged_in_employee,
+            'today': day,
+            'customers': todays_customers
+        }
+        return render(request, 'employees/select_day.html', context)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('employees:create'))
+    # return HttpResponseRedirect(reverse('employees:index', args=(day,)))
 
 @login_required
 def create(request):

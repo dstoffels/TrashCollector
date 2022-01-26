@@ -5,28 +5,45 @@
 {% block header %} Employee Portal {% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-        Hello, {{ logged_in_employee.first_name }}!<br />
-        <table class="center-table">
-            <thead>
-                <tr>
-                    <th>Customer Name</th><th>Address</th><th>Zip Code</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for customer in customers %}
-                <tr>
-                    <td>{{customer.name}}</td><td>{{customer.address}}</td><td>{{customer.zip_code}}</td><td><a class="btn btn-primary" type="button" href="{% url 'employees:confirm_pickup' customer.id %}">Confirm pickup</a>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>You are at the employee home page, but you are not logged in.</p>
-        <a href="{% url 'login' %}">Log In</a>
-        <a href="{% url 'accounts:register' %}">Sign Up</a>
-  {% endif %}
+{% if user.is_authenticated %}
+Hello, {{ logged_in_employee.first_name }}!<br />
+<div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Monday' %}">Monday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Tuesday' %}">Tuesday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Wednesday' %}">Wednesday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Thursday' %}">Thursday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Friday' %}">Friday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Saturday' %}">Saturday</a></li>
+    <li><a class="dropdown-item" href="{% url 'employees:select_day' 'Sunday' %}">Sunday</a></li>
+  </ul>
+</div>
+<table class="center-table">
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Address</th>
+      <th>Zip Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for customer in customers %}
+    <tr>
+      <td>{{customer.name}}</td>
+      <td>{{customer.address}}</td>
+      <td>{{customer.zip_code}}</td>
+      <td><a class="btn btn-primary" type="button" href="{% url 'employees:confirm_pickup' customer.id %}">Confirm
+          pickup</a>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>You are at the employee home page, but you are not logged in.</p>
+<a href="{% url 'login' %}">Log In</a>
+<a href="{% url 'accounts:register' %}">Sign Up</a>
+{% endif %}
 {% endblock %}
-
-
-
