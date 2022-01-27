@@ -1,5 +1,5 @@
 from datetime import date
-from time import strftime
+import json
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
@@ -8,8 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 
-
-#from trash_collector.customers.models import Customer
+from gmaps_api import API_LINK
 
 from .models import Employee
 
@@ -33,7 +32,8 @@ def index(request, day=date.today().strftime('%A')):
         context = {
             'logged_in_employee': logged_in_employee,
             'today': day,
-            'customers': todays_customers
+            'customers': todays_customers,
+            'gmaps': API_LINK,
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:

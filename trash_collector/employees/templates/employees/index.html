@@ -5,6 +5,7 @@
 {% block header %} Employee Portal {% endblock %}
 
 {% block content %}
+
 {% if user.is_authenticated %}
 <h3 class="mt-4 mb-5 fw-normal">Hello, {{ logged_in_employee.first_name }}!</h3>
 
@@ -29,26 +30,6 @@
           href="{% url 'employees:confirm_pickup' customer.id %}">Confirm
           pickup</a>
     </tr>
-
-    <script type='text/javascript'>
-      var coords = {
-        lat: parseFloat("{{ customer.lat }}"),
-        lng: parseFloat("{{ customer.lng }}")
-      }
-
-      function initMap() {
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 4,
-          center: coords,
-        });
-
-        new google.maps.Marker({
-          position: coords,
-          map,
-          title: "{{ customer.name }}: {{ customer.address }}",
-        });
-      }
-    </script>
     {% endfor %}
   </tbody>
 </table>
@@ -60,13 +41,35 @@
 {% endblock %}
 
 {% block footer %}
+
 <script>
+  function initMap() {
+    const customers = [
+    {%for customer in customers %} 
+      {
+        name: '{{customer.name}}',
+        address: '{{customer.address}}',
+        coords:{
+          lat: {{ customer.lat }}, 
+          lng: {{ customer.lng }}, 
+        }
+      },
+    {% endfor %}
+    ]
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 10,
+      center: customers[0].coords
+    });
+
+    customers.map(cust => {
+      new google.maps.Marker({
+        position: cust.coords,
+        map,
+        title: `${cust.name}: ${cust.address}`,
+      });
+    })
+  }
 </script>
-
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJcgG_ZuV1DtM0lq7chYco4AI75_KPx3U&callback=initMap&v=weekly"
-  async>
-</script>
-
-
+<script src="{{gmaps}}" async></script>
 {% endblock %}

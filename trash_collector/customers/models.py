@@ -1,5 +1,6 @@
 from django.db import models
-import requests
+
+from gmaps_api import geolocate
 
 class Customer(models.Model):
     name = models.CharField(max_length=50)
@@ -12,17 +13,13 @@ class Customer(models.Model):
     suspend_end = models.DateField(null=True, blank=True)
     date_of_last_pickup = models.DateField(null=True, blank=True)
     balance = models.IntegerField(default=0)
-    # geolocation = models.CharField(max_length=200, default='')
     lat = models.FloatField(default=0)
     lng = models.FloatField(default=0)
 
     def convert_address(self):
-        request = requests.get(f'https://maps.googleapis.com/maps/api/geocode/json?address={self.address}+{self.zip_code}&key=AIzaSyAJcgG_ZuV1DtM0lq7chYco4AI75_KPx3U')
-        response =  request.json()
-        result = response['results'][0]
-
-        self.lat = result['geometry']['location']['lat']
-        self.lng = result['geometry']['location']['lng']
+        location = geolocate(self.address, self.zip_code)
+        self.lat = location['lat']
+        self.lng = location['lng']
 
     def __str__(self):
         return self.name
