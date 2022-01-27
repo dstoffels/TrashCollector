@@ -1,7 +1,7 @@
 import requests
 from gmaps_api_key import GOOGLE_MAPS_API_KEY
 
-API_LINK = f'https://maps.googleapis.com/maps/api/js?key={GOOGLE_MAPS_API_KEY}&callback=initMap&v=weekly'
+GOOGLE_API_LINK = f'https://maps.googleapis.com/maps/api/js?key={GOOGLE_MAPS_API_KEY}&callback=initMap&v=weekly'
 
 class LatLng:
   def __init__(self, lat, lng):
@@ -17,16 +17,20 @@ def geolocate(*args):
   result = response['results'][0]['geometry']['location']
   return LatLng(result['lat'], result['lng'])
 
-def average_latlng(customer_set):
-  # customer_set = [item for item in customer_set]
-  lats = 0
-  lngs = 0
+def average_latlng(customer_set, employee_zip):
+  lat = 0
+  lng = 0
   for customer in customer_set:
-    lats += customer.lat
-    lngs += customer.lng
+    lat += customer.lat
+    lng += customer.lng
 
-  lat = lats/len(customer_set)
-  lng = lngs/len(customer_set)
+  if len(customer_set) > 0:
+    lat /= len(customer_set)
+    lng /= len(customer_set)
+  else:
+    employee_coords = geolocate(employee_zip)
+    lat = employee_coords.lat
+    lng = employee_coords.lng
 
   return LatLng(lat,lng)
 

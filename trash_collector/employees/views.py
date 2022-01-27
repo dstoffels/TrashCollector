@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 
-from gmaps_api import API_LINK, average_latlng
+from gmaps_api import GOOGLE_API_LINK, average_latlng
 
 from .models import Employee
 
@@ -33,8 +33,8 @@ def index(request, day=date.today().strftime('%A')):
             'logged_in_employee': logged_in_employee,
             'today': day,
             'customers': todays_customers,
-            'gmaps': API_LINK,
-            'center': average_latlng(todays_customers)
+            'gmaps': GOOGLE_API_LINK,
+            'center': average_latlng(todays_customers, logged_in_employee.zip_code)
 
         }
         return render(request, 'employees/index.html', context)
@@ -103,3 +103,13 @@ def edit_profile(request):
             'logged_in_employee': logged_in_employee
         }
         return render(request, 'employees/edit_profile.html', context)
+
+@login_required
+def customer_details(request, id):
+    Customer = apps.get_model('customers.Customer') 
+    customer = Customer.objects.get(pk=id)
+    context = {
+        'customer': customer,
+        'gmaps': GOOGLE_API_LINK
+    }
+    return render(request, 'employees/details.html', context)
