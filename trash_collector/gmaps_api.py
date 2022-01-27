@@ -1,5 +1,5 @@
 import requests
-from gmaps_api_key import GOOGLE_MAPS_API_KEY
+from api_keys import GOOGLE_MAPS_API_KEY
 
 GOOGLE_API_LINK = f'https://maps.googleapis.com/maps/api/js?key={GOOGLE_MAPS_API_KEY}&callback=initMap&v=weekly'
 

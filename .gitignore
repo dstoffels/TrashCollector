@@ -131,5 +131,5 @@ dmypy.json
 # prettier
 .prettierignore
 
-# Google Maps API
-**/gmaps_api_key.py
+# API Keys
+**/api_keys.py

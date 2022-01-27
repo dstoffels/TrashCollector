@@ -1,0 +1,33 @@
+
+{% extends 'customers/customer_base.html' %}
+{% load static %}
+
+{% block head %}<link rel="stylesheet" href="{% static "/checkout.css" %}" />{% endblock %}
+
+{% block title %} Payment Checkout {% endblock %}
+
+{% block header %} Checkout {% endblock %}
+
+{% block content %}
+
+
+<!-- Display a payment form -->
+<form id="payment-form">
+  {% csrf_token %}
+  <div id="payment-element">
+    <!--Stripe.js injects the Payment Element-->
+  </div>
+  <button id="submit">
+    <div class="spinner hidden" id="spinner"></div>
+    <span id="button-text">Pay now</span>
+  </button>
+  <div id="payment-message" class="hidden"></div>
+</form> 
+
+
+{% endblock %}
+
+{% block footer %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static "/checkout.js" %}" defer></script>
+{% endblock %}

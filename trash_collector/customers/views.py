@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from datetime import date
 
 from .models import Customer
+import stripe
+import json
+from django.views.decorators.csrf import csrf_exempt
+from api_keys import STRIPE_TEST_API_KEY
+
 
 @login_required
 def index(request):
@@ -93,3 +98,41 @@ def edit_profile(request):
             'logged_in_customer': logged_in_customer
         }
         return render(request, 'customers/edit_profile.html', context)
+
+@login_required
+def checkout(request):
+    logged_in_user = request.user
+    logged_in_customer = Customer.objects.get(user=logged_in_user)
+    return render(request, 'customers/checkout.html')
+
+
+def success(request):
+    pass
+
+
+def calculate_order_amount(items):
+    # Replace this constant with a calculation of the order's amount
+    # Calculate the order total on the server to prevent
+    # people from directly manipulating the amount on the client
+    return 1400
+
+
+@csrf_exempt
+def create_payment(request):
+        stripe.api_key = STRIPE_TEST_API_KEY
+    # try:
+        # data = json.loads(request.data)
+        # Create a PaymentIntent with the order amount and currency
+        intent = stripe.PaymentIntent.create(
+            payment_method_types = ['card'],
+            amount=50,
+            currency='usd',
+            # automatic_payment_methods={
+            #     'enabled': True,
+            # },
+        )
+        return JsonResponse({
+            'clientSecret': intent['client_secret']
+        })
+    # except Exception as e:
+    #     return JsonResponse({"error": str(e)}), 403

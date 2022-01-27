@@ -40,11 +40,11 @@ It is your task to build out the employee-side of this application to allow empl
 
 **_Bonus User Stories (bonus points only earned if all base user stories attempted):_**
 
-(5 points): As an employee, I want to be able to select a customer profile and see their address with a pin on a map (Google Maps API, Google Geocoding API).
+<!-- (5 points): As an employee, I want to be able to select a customer profile and see their address with a pin on a map (Google Maps API, Google Geocoding API). -->
 
 (5 points): As a developer, I want to integrate a payment API to allow customers to make payments on the application.
 
-(5 points): As an employee, I want to be able to see all of my customers on a map for delivery (multiple pins displayed on one map, unique by day).
+<!-- (5 points): As an employee, I want to be able to see all of my customers on a map for delivery (multiple pins displayed on one map, unique by day). -->
 
 (5 points): As a customer, I want an attractive, styled front end experience.
 
