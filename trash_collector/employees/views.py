@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 
-from gmaps_api import API_LINK
+from gmaps_api import API_LINK, average_latlng
 
 from .models import Employee
 
@@ -34,6 +34,8 @@ def index(request, day=date.today().strftime('%A')):
             'today': day,
             'customers': todays_customers,
             'gmaps': API_LINK,
+            'center': average_latlng(todays_customers)
+
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:

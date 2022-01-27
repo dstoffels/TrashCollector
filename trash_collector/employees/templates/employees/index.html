@@ -58,8 +58,8 @@
     ]
 
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 10,
-      center: customers[0].coords
+      zoom: 11,
+      center: { lat:{{ center.lat }}, lng: {{center.lng}} }
     });
 
     customers.map(cust => {

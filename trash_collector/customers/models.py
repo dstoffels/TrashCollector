@@ -18,8 +18,8 @@ class Customer(models.Model):
 
     def convert_address(self):
         location = geolocate(self.address, self.zip_code)
-        self.lat = location['lat']
-        self.lng = location['lng']
+        self.lat = location.lat
+        self.lng = location.lng
 
     def __str__(self):
         return self.name
