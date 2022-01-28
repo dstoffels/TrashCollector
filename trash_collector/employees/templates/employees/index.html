@@ -23,7 +23,7 @@
   <tbody>
     {% for customer in customers %}
     <tr>
-      <td><a href="{% url 'employees:details' customer.id %}">{{customer.name}}</a></td>
+      <td><a href="{% url 'employees:details' customer.id %}">{{customer.first_name}} {{customer.last_name}}</a></td>
       <td>{{customer.address}}</td>
       <td>{{customer.zip_code}}</td>
       <td><a class="btn btn-primary float-end" type="button"
@@ -47,7 +47,7 @@
     const customers = [
     {%for customer in customers %} 
       {
-        name: '{{customer.name}}',
+        name: '{{customer.first_name}} {{customer.last_name}}',
         address: '{{customer.address}}',
         coords:{
           lat: {{ customer.lat }}, 

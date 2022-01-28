@@ -2,7 +2,7 @@
 
 {% block title %} {{customer.name}} Details {% endblock %}
 
-{% block header %} Customer Details: {{customer.name}} {% endblock %}
+{% block header %} Customer Details: {{customer.first_name}} {{customer.last_name}}{% endblock %}
 
 {% block content %}
 
@@ -63,7 +63,7 @@
       new google.maps.Marker({
         position: location,
         map,
-        title: `{{customer.name}}: {{customer.address}}`,
+        title: `{{customer.first_name}} {{customer.last_name}}: {{customer.address}}`,
       });
   }
 </script>

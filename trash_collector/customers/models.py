@@ -8,7 +8,7 @@ class Customer(models.Model):
     user = models.ForeignKey('accounts.User', blank=True, null=True, unique=True, on_delete=models.CASCADE)
     address = models.CharField(max_length=500)
     city = models.CharField(max_length=50)
-    state = models.CharField(max_length=2)
+    state = models.CharField(max_length=2, null=True)
     zip_code = models.CharField(max_length=5)
     weekly_pickup = models.CharField(max_length=9)
     one_time_pickup = models.DateField(null=True, blank=True)

@@ -5,23 +5,127 @@
 {% block header %} Please Complete Registration {% endblock %}
 
 {% block content %}
-
-<form action="{% url 'customers:create' %}" method="post">
+<br />
+<div class="w-75 mt-3">
+<form action="{% url 'customers:create' %}" method="post" class="text-start">
     {% csrf_token %}
-    Name: <input type="text" name="name" id="name"><br />
-    Address: <input type="text" name="address" id="address"><br />
-    Zip Code: <input type="text" name="zip_code" id="zip_code"><br />
-    Choose Your Weekly Pickup Day: 
-        <select class="custom-select my-1 mr-sm-2" name="weekly_pickup" id="weekly_pickup"> 
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
-        </select><br /><br />
-    <input type="submit" value="Register">
+    <div class="row">
+        <div class="col">
+            <div class="mb-3 mt-3">
+            <label for "first_name" class="form-label">First Name:</label>
+            <input type="text" class="form-control" name="first_name" id="first_name">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3 mt-3">
+            <label for "last_name" class="form-label">Last Name:</label>
+            <input type="text" class="form-control" name="last_name" id="last_name">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="mb-3 mt-3">
+            <label for "address" class="form-label">Address:</label>
+            <input type="text" class="form-control" name="address" id="address">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <div class="mb-3 mt-3">
+            <label for "city" class="form-label">City:</label>
+            <input type="text" class="form-control" name="city" id="city">
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="mb-3 mt-3">
+            <label for "state" class="form-label">State:</label>
+                <select class="form-select" name="state" id="state"> 
+                    <option selected disabled value="{{logged_in_customer.state}}">- -</option>
+                    <option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AZ">AZ</option>
+                    <option value="AR">AR</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="DC">DC</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="GU">GU</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="IA">IA</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="ME">ME</option>
+                    <option value="MD">MD</option>
+                    <option value="MA">MA</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MS">MS</option>
+                    <option value="MO">MO</option>
+                    <option value="MT">MT</option>
+                    <option value="NE">NE</option>
+                    <option value="NV">NV</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NY">NY</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WV">WV</option>
+                    <option value="WI">WI</option>
+                    <option value="WY">WY</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="mb-3 mt-3">
+            <label for "zip_code" class="form-label">Zip Code:</label>
+            <input type="text" class="form-control" name="zip_code" id="zip_code">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3 mt-3">
+            <label for "weekly_pickup" class="form-label">Weekly Pickup Day:</label>
+                <select class="form-select" name="weekly_pickup" id="weekly_pickup">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="mb-3 mt-3">
+                <input type="submit" value="Register" class="btn btn-primary mt-3 w-25">
+            </div>
+        </div>
+    </div>
+</div>
 </form>
 
 {% endblock %}

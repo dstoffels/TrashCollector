@@ -6,7 +6,7 @@
 
 {% block content %}
 <br />
-<div class="w-100 mt-3">
+<div class="w-75 mt-3">
 <form action="{% url 'customers:edit_profile' %}" method="post" class="text-start">
     {% csrf_token %}
     <div class="row">
@@ -40,15 +40,9 @@
         </div>
         <div class="col-2">
             <div class="mb-3 mt-3">
-            <label for "zip_code" class="form-label">Zip Code:</label>
-            <input type="text" class="form-control" name="zip_code" id="zip_code" value="{{logged_in_customer.zip_code}}">
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="mb-3 mt-3">
             <label for "state" class="form-label">State:</label>
                 <select class="form-select" name="state" id="state"> 
-                    <option selected value="{{logged_in_customer.state}}">Choose...</option>
+                    <option selected value="{{logged_in_customer.state}}">- -</option>
                     <option value="AL">AL</option>
                     <option value="AK">AK</option>
                     <option value="AZ">AZ</option>
@@ -103,6 +97,12 @@
                 </select>
             </div>
         </div>
+        <div class="col-2">
+            <div class="mb-3 mt-3">
+            <label for "zip_code" class="form-label">Zip Code:</label>
+            <input type="text" class="form-control" name="zip_code" id="zip_code" value="{{logged_in_customer.zip_code}}">
+            </div>
+        </div>
         <div class="col">
             <div class="mb-3 mt-3">
             <label for "weekly" class="form-label">Weekly Pickup Day:</label>
@@ -120,8 +120,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-5">
-            <input type="submit" value="Submit" class="btn btn-primary mt-3">
+        <div class="col">
+            <div class="mb-3 mt-3">
+                <input type="submit" value="Submit" class="btn btn-primary mt-3 w-25">
+            </div>
         </div>
     </div>
 </div>

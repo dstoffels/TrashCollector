@@ -17,7 +17,7 @@ from .models import Employee
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
 @login_required
 def index(request, day=date.today().strftime('%A')):
-    Customer = apps.get_model('customers.Customer') 
+    Customer = apps.get_model('customers.Customer')
     # The following line will get the logged-in user (if there is one) within any view function
     logged_in_user = request.user
     try:
@@ -27,7 +27,7 @@ def index(request, day=date.today().strftime('%A')):
         todays_date = date.today()
         todays_date = todays_date if day == todays_date.strftime('%A') else date(1892,1,1)
 
-        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date)
+        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date).order_by('last_name')
 
         context = {
             'logged_in_employee': logged_in_employee,
@@ -60,7 +60,7 @@ def select_day(request, day): # FIXME: REFACTOR INTO index.html
         todays_date = date.today()
         todays_date = todays_date if day == todays_date.strftime('%A') else date(1892,1,1)
 
-        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date)
+        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date).order_by('last_name')
 
         context = {
             'logged_in_employee': logged_in_employee,

@@ -34,13 +34,14 @@ def index(request):
 def create(request):
     logged_in_user = request.user
     if request.method == "POST":
-        name_from_form = request.POST.get('name')
+        first_name_from_form = request.POST.get('first_name')
+        last_name_from_form = request.POST.get('last_name')
         address_from_form = request.POST.get('address')
         city_from_form = request.POST.get('city')
         state_from_form = request.POST.get('state')
         zip_from_form = request.POST.get('zip_code')
         weekly_from_form = request.POST.get('weekly_pickup')
-        new_customer = Customer(name=name_from_form, user=logged_in_user, address=address_from_form, city=city_from_form, state=state_from_form, zip_code=zip_from_form, weekly_pickup=weekly_from_form)
+        new_customer = Customer(first_name=first_name_from_form, last_name=last_name_from_form, user=logged_in_user, address=address_from_form, city=city_from_form, state=state_from_form, zip_code=zip_from_form, weekly_pickup=weekly_from_form)
         new_customer.convert_address()
         new_customer.save()
         return HttpResponseRedirect(reverse('customers:index'))
