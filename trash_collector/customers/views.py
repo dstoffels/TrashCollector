@@ -36,9 +36,11 @@ def create(request):
     if request.method == "POST":
         name_from_form = request.POST.get('name')
         address_from_form = request.POST.get('address')
+        city_from_form = request.POST.get('city')
+        state_from_form = request.POST.get('state')
         zip_from_form = request.POST.get('zip_code')
         weekly_from_form = request.POST.get('weekly_pickup')
-        new_customer = Customer(name=name_from_form, user=logged_in_user, address=address_from_form, zip_code=zip_from_form, weekly_pickup=weekly_from_form)
+        new_customer = Customer(name=name_from_form, user=logged_in_user, address=address_from_form, city=city_from_form, state=state_from_form, zip_code=zip_from_form, weekly_pickup=weekly_from_form)
         new_customer.convert_address()
         new_customer.save()
         return HttpResponseRedirect(reverse('customers:index'))
@@ -82,12 +84,18 @@ def edit_profile(request):
     logged_in_user = request.user
     logged_in_customer = Customer.objects.get(user=logged_in_user)
     if request.method == "POST":
-        name_from_form = request.POST.get('name')
+        first_name_from_form = request.POST.get('first_name')
+        last_name_from_form = request.POST.get('last_name')
         address_from_form = request.POST.get('address')
+        city_from_form = request.POST.get('city')
+        state_from_form = request.POST.get('state')
         zip_from_form = request.POST.get('zip_code')
         weekly_pickup_from_form = request.POST.get('weekly')
-        logged_in_customer.name = name_from_form
+        logged_in_customer.first_name = first_name_from_form
+        logged_in_customer.last_name = last_name_from_form
         logged_in_customer.address = address_from_form
+        logged_in_customer.city = city_from_form
+        logged_in_customer.state = state_from_form
         logged_in_customer.zip_code = zip_from_form
         logged_in_customer.weekly_pickup = weekly_pickup_from_form
         logged_in_customer.convert_address()

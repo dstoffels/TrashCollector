@@ -6,8 +6,8 @@
 
 {% block content %}
   {% if user.is_authenticated %}
-        Hello {{ logged_in_customer.name }}!<br />
-        Address: {{ logged_in_customer.address }} {{logged_in_customer.zip_code }}<br />
+        Hello, {{ logged_in_customer.first_name }}!<br />
+        Address: {{ logged_in_customer.address }}, {{logged_in_customer.city}}, {{logged_in_customer.state}}, {{logged_in_customer.zip_code }}<br />
         Current balance: ${{ logged_in_customer.balance }}.00
         <br />
         <br />
