@@ -11,5 +11,5 @@ urlpatterns = [
     path('edit_profile/', views.edit_profile, name="edit_profile"),
     path('checkout/', views.checkout, name="checkout"),
     path('create-payment-intent/', views.create_payment, name="create_payment"),
-    path('success/', views.success, name="success")
+    path('success/', views.success, name='success')
 ]

@@ -1,15 +1,16 @@
-
 {% extends 'customers/customer_base.html' %}
 {% load static %}
 
-{% block head %}<link rel="stylesheet" href="{% static "/checkout.css" %}" />{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static "/checkout.css" %}" />{% endblock %}
 
 {% block title %} Payment Checkout {% endblock %}
 
-{% block header %} Checkout {% endblock %}
+{% block header %} Make A Payment {% endblock %}
 
 {% block content %}
-
+{% if has_balance %}
+<p>Payment Amount: ${{customer.balance}} </p>
 
 <!-- Display a payment form -->
 <form id="payment-form">
@@ -22,7 +23,10 @@
     <span id="button-text">Pay now</span>
   </button>
   <div id="payment-message" class="hidden"></div>
-</form> 
+  {% else %}
+  <p>Payments can only be made on balances greater than $0.50</p>
+  {% endif %}
+</form>
 
 
 {% endblock %}

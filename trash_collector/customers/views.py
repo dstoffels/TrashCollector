@@ -103,12 +103,22 @@ def edit_profile(request):
 def checkout(request):
     logged_in_user = request.user
     logged_in_customer = Customer.objects.get(user=logged_in_user)
-    return render(request, 'customers/checkout.html')
+
+    has_balance = logged_in_customer.balance >= 0.5
+
+    context = { 'customer': logged_in_customer, 'has_balance': has_balance}
+    return render(request, 'customers/checkout.html', context)
 
 
 def success(request):
-    pass
+    logged_in_user = request.user
+    logged_in_customer = Customer.objects.get(user=logged_in_user)
 
+    logged_in_customer.balance = 0
+    logged_in_customer.save()
+    context = { 'customer': logged_in_customer }
+
+    return render(request, 'customers/success.html', context)
 
 def calculate_order_amount(items):
     # Replace this constant with a calculation of the order's amount
@@ -117,22 +127,23 @@ def calculate_order_amount(items):
     return 1400
 
 
+@login_required
 @csrf_exempt
 def create_payment(request):
-        stripe.api_key = STRIPE_TEST_API_KEY
-    # try:
-        # data = json.loads(request.data)
-        # Create a PaymentIntent with the order amount and currency
-        intent = stripe.PaymentIntent.create(
-            payment_method_types = ['card'],
-            amount=50,
-            currency='usd',
-            # automatic_payment_methods={
-            #     'enabled': True,
-            # },
-        )
-        return JsonResponse({
-            'clientSecret': intent['client_secret']
-        })
-    # except Exception as e:
-    #     return JsonResponse({"error": str(e)}), 403
+    logged_in_user = request.user
+    logged_in_customer = Customer.objects.get(user=logged_in_user)
+
+    stripe.api_key = STRIPE_TEST_API_KEY
+# try:
+    # data = json.loads(request.data)
+    # Create a PaymentIntent with the order amount and currency
+    intent = stripe.PaymentIntent.create(
+        payment_method_types = ['card'],
+        amount= logged_in_customer.balance * 100,
+        currency='usd',
+    )
+    return JsonResponse({
+        'clientSecret': intent['client_secret']
+    })
+# except Exception as e:
+#     return JsonResponse({"error": str(e)}), 403

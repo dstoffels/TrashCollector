@@ -1,0 +1,9 @@
+{% extends 'customers/customer_base.html' %}
+
+{% block title %}Success!{% endblock title %}
+
+{% block header %}Payment Succesful!{% endblock header %}
+
+{% block content %}
+Current Balance: ${{ customer.balance}}
+{% endblock content %}
