@@ -8,13 +8,13 @@
 
 {% if user.is_authenticated %}
 
-<div style="width: 100%; height: 400px" id="map"></div>
+<div style="width: 100%; height: 400px" id="map" class="mb-5 mt-5 img-thumbnail"></div>
 
 <table class="table center-table table-dark table-bordered">
   <tbody>
     <tr>
       <td>Address:</td>
-      <td>{{customer.address}}</td>
+      <td>{{customer.address}}, {{customer.city}}, {{customer.state}}</td>
     </tr>
     <tr>
       <td>Zip Code:</td>
