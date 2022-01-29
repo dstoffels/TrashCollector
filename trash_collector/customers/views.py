@@ -10,7 +10,7 @@ import stripe
 import json
 from django.views.decorators.csrf import csrf_exempt
 from api_keys import STRIPE_TEST_API_KEY
-
+import time
 
 @login_required
 def index(request):
