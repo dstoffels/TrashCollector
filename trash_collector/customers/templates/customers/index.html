@@ -2,26 +2,49 @@
 
 {% block title %} Customer Home {% endblock %}
 
-{% block header %} Customer Portal {% endblock %}
+{% block header %} Account Details {% endblock %}
 
 {% block content %}
   {% if user.is_authenticated %}
-        Hello, {{ logged_in_customer.first_name }}!<br />
-        Address: {{ logged_in_customer.address }}, {{logged_in_customer.city}}, {{logged_in_customer.state}}, {{logged_in_customer.zip_code }}<br />
-        Current balance: ${{ logged_in_customer.balance }}.00
-        <br />
-        <br />
-        Your Weekly Pickup Day: {{ logged_in_customer.weekly_pickup }}
-        <br />
-        <br />
-        {% if logged_in_customer.one_time_pickup %}
-          You have an extra pickup scheduled for {{ logged_in_customer.one_time_pickup }}
-        {% endif %}
-        <br />
-        <br />
-        {% if today > logged_in_customer.suspend_start and today < logged_in_customer.suspend_end %}
-          Your pickups are suspended until {{ logged_in_customer.suspend_end }}
-        {% endif %}
+  <h3 class="mt-4 mb-5 fw-normal">Hello, {{ logged_in_customer.first_name }}!</h3>
+
+        <table class="table center-table table-dark mt-5">
+          <tbody>
+            <tr>
+              <th>Name:</th>
+              <td>{{logged_in_customer.first_name}} {{logged_in_customer.last_name}}</td>
+            </tr>
+            <tr>
+              <th>Username:</th>
+              <td>{{logged_in_customer.user.username}}</td>
+            </tr>
+            <tr>
+              <th>Address:</th>
+              <td>{{logged_in_customer.address}}, {{logged_in_customer.city}}, {{logged_in_customer.state}} {{logged_in_customer.zip_code}}</td>
+            </tr>
+            <tr>
+              <th>Weekly Pickup Day:</th>
+              <td>{{logged_in_customer.weekly_pickup}}</td>
+            </tr>
+            {% if logged_in_customer.one_time_pickup %}
+            <tr>
+              <th>Upcoming Additional One-Time Pickup:</th>
+              <td>{{logged_in_customer.one_time_pickup}}</td>
+            </tr>
+            {% endif %}
+            {% if today > logged_in_customer.suspend_end %}
+            <tr>
+              <th>Service Suspension:</th>
+              <td>{{logged_in_customer.suspension_start_date}}-{{logged_in_customer.suspension_end_date}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+            <th>Current Balance:</th>
+            <td>${{ logged_in_customer.balance }}.00</td>
+          </tr>
+            
+        </tbody>
+        </table>
 
   {% else %}
     <p>You are at the customer index, but you are not logged in.</p>
