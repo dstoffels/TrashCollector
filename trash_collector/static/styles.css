@@ -1,5 +1,24 @@
 .errorlist {
-  list-style-type: none;
-  padding: 0;
-  color: red;
+	list-style-type: none;
+	padding: 0;
+	color: red;
+}
+
+.helptext {
+	font-size: 0.875em;
+	font-weight: 400;
+	color: #6c757d !important;
+}
+
+.datepicker {
+	padding: none;
+}
+
+.datepicker::-webkit-datetime-edit {
+	display: none;
+}
+
+.datepicker::-webkit-calendar-picker-indicator {
+	cursor: pointer;
+	margin: 0;
 }

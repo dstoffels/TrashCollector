@@ -1,6 +1,7 @@
 from django.db import models
 
 from gmaps_api import geolocate
+from .helpers import parse_date
 
 class Customer(models.Model):
     first_name = models.CharField(max_length=50)
@@ -18,6 +19,12 @@ class Customer(models.Model):
     balance = models.IntegerField(default=0)
     lat = models.FloatField(default=0)
     lng = models.FloatField(default=0)
+    pickup_confirmed = models.BooleanField(default=False)
+
+    def confirm_pickup(self, date):
+        if self.date_of_last_pickup:
+            self.pickup_confirmed = date <= self.date_of_last_pickup
+            self.save()
 
     def convert_address(self):
         location = geolocate(self.address, self.city, self.state, self.zip_code)

@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
@@ -9,46 +9,41 @@ from django.db.models import Q
 
 from .models import Employee
 
+from .helpers import parse_date
 import gmaps_api
 
 # Create your views here.
-
-def parse_date(day) -> date:
-    weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
-    if day in weekdays:
-        todays_date = date.today()
-        todays_index = todays_date.weekday()
-        day_index = weekdays.index(day)
-        difference = day_index - todays_index
-        return date(todays_date.year, todays_date.month, todays_date.day + difference)
-    else:
-        return datetime.strptime(day, '%Y-%m-%d').date()
 
 @login_required
 def index(request):
     today = date.today()
     return HttpResponseRedirect(reverse('employees:select_day', args=(today,)))
 
-def confirm_pickup(request, id):
+def confirm_pickup(request, id, selected_date):
     Customer = apps.get_model('customers.Customer')
     customer = Customer.objects.get(pk=id)
-    customer.date_of_last_pickup = date.today()
+    customer.date_of_last_pickup = selected_date
     customer.balance += 20
     customer.save()
-    return HttpResponseRedirect(reverse('employees:index'))
+    return HttpResponseRedirect(reverse('employees:select_day', args=(selected_date,)))
 
-def select_day(request, day):
+def select_day(request, day=''):
     Customer = apps.get_model('customers.Customer')
-    display_date = parse_date(day)
+
+    display_date = parse_date(request.POST['selected_date']) if request.method == 'POST' else parse_date(day)
     day = display_date.strftime("%A")
+
     try:
         logged_in_employee = Employee.objects.get(user = request.user)
-        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=display_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=display_date, suspend_end__gte=display_date).exclude(date_of_last_pickup=display_date).order_by('last_name')
+        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=display_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=display_date, suspend_end__gte=display_date).order_by('last_name')
+        for customer in todays_customers:
+            customer.confirm_pickup(display_date)
+        
         context = {
             'logged_in_employee': logged_in_employee,
-            'today': day,
             'customers': todays_customers,
+            'today': day,
+            'selected_date': display_date,
             'gmaps': gmaps_api.LINK,
             'center': gmaps_api.average_latlng(todays_customers, logged_in_employee.zip_code)
         }
