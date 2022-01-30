@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import TextInput
 from .models import User
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
@@ -11,7 +12,14 @@ class CustomUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username", "password1", "password2", "is_employee")
-
+        widgets = {
+            'username': TextInput(attrs={
+                'class': "form-control mb-1 mt-1",
+                'style': 'max-width: 60%;',
+                'placeholder': 'Username',
+                })
+        }
+        
     def save(self, commit=True):
         # Overriding the save method to add user to auth group of Employee or Customer depending on if box is checked
         user = super(CustomUserForm, self).save(commit=False)
