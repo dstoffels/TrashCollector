@@ -2,7 +2,7 @@ from django import forms
 from django.forms import TextInput
 from .models import User
 from django.contrib.auth.models import Group
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 
 
 class CustomUserForm(UserCreationForm):
@@ -15,7 +15,6 @@ class CustomUserForm(UserCreationForm):
         widgets = {
             'username': TextInput(attrs={
                 'class': "form-control mb-1 mt-1",
-                'style': 'max-width: 60%;',
                 'placeholder': 'Username',
                 })
         }
@@ -36,4 +35,11 @@ class CustomUserForm(UserCreationForm):
                 customers.user_set.add(user)
         return user
 
+class CustomAuthenticationForm(AuthenticationForm):
+    username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True, 'class': "form-control mb-1 mt-1", 'placeholder': 'Username',}))
+    password = forms.CharField(
+        label=("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'placeholder': 'Password', 'class': "form-control mb-3 mt-1"}),
+    )
 
