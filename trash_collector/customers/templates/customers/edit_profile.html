@@ -38,7 +38,7 @@
             <input type="text" class="form-control" name="city" id="city" value="{{logged_in_customer.city}}">
             </div>
         </div>
-        <div class="col-2">
+        <div class="col">
             <div class="mb-3 mt-3">
             <label for "state" class="form-label">State:</label>
                 <select class="form-select" name="state" id="state"> 
@@ -97,25 +97,27 @@
                 </select>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col">
             <div class="mb-3 mt-3">
             <label for "zip_code" class="form-label">Zip Code:</label>
             <input type="text" class="form-control" name="zip_code" id="zip_code" value="{{logged_in_customer.zip_code}}">
             </div>
         </div>
-        <div class="col">
-            <div class="mb-3 mt-3">
-            <label for "weekly" class="form-label">Weekly Pickup Day:</label>
-                <select class="form-select" name="weekly" id="weekly"> 
-                    <option selected value="{{logged_in_customer.weekly_pickup}}">Choose...</option>
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
-                    <option value="Saturday">Saturday</option>
-                    <option value="Sunday">Sunday</option>
-                </select>
+        <div class="row">
+            <div class="col-5">
+                <div class="mb-3 mt-3">
+                <label for "weekly" class="form-label">Weekly Pickup Day:</label>
+                    <select class="form-select" name="weekly" id="weekly"> 
+                        <option selected value="{{logged_in_customer.weekly_pickup}}">Choose...</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>

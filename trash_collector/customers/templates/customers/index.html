@@ -32,10 +32,10 @@
               <td>{{logged_in_customer.one_time_pickup}}</td>
             </tr>
             {% endif %}
-            {% if today > logged_in_customer.suspend_end %}
+            {% if today < logged_in_customer.suspend_end %}
             <tr>
               <th>Service Suspension:</th>
-              <td>{{logged_in_customer.suspension_start_date}}-{{logged_in_customer.suspension_end_date}}</td>
+              <td>{{logged_in_customer.suspend_start}} - {{logged_in_customer.suspend_end}}</td>
             </tr>
             {% endif %}
             <tr>
