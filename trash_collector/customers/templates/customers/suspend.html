@@ -6,15 +6,21 @@
 
 {% block content %}
 <br />
-<form action="{% url 'customers:suspend' %}" method="post">
+<div class="w-50 mt-3">
+<form action="{% url 'customers:suspend' %}" method="post" class="text-start">
     {% csrf_token %}
-    Start Date: <input type="date" name="start" id="start">
-    <br />
-    <br />
-    End Date: <input type="date" name="end" id="end">
-    <br />
-    <br />
-    <input type="submit" value="Submit">
+    <div class="mb-3 mt-3">
+        <label for "start" class="form-label col-form-label-lg">Start Date:</label>
+            <input type="date" name="start" id="start" class="form-control form-control-lg">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for "end" class="form-label col-form-label-lg">End Date:</label>
+            <input type="date" name="end" id="end" class="form-control form-control-lg">
+    </div>
+    <div class="mb-3 mt-3">
+        <input type="submit" value="Submit" class="btn btn-primary mt-3 btn-lg float-start">
+    </div>  
+</div>
 </form>
 
 {% endblock %}

@@ -6,17 +6,17 @@
 
 {% block content %}
 <br />
-<div class="w-25 mt-3">
+<div class="w-50 mt-3">
 <form action="{% url 'customers:one_time' %}" method="post" class="text-start">
     {% csrf_token %}
     <div class="mb-3 mt-3">
         <label for "date" class="form-label col-form-label-lg">Date of Pickup:</label>
             <input type="date" name="date" id="date" class="form-control form-control-lg">
     </div>
-</div>
     <div class="mb-3 mt-3">
         <input type="submit" value="Submit" class="btn btn-primary mt-3 btn-lg">
     </div>
+</div>
 </form>
 
 {% endblock %}
