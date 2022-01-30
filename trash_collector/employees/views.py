@@ -1,5 +1,4 @@
-from datetime import date
-import json
+from datetime import date, datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
@@ -8,38 +7,28 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 
-from gmaps_api import GOOGLE_API_LINK, average_latlng
-
 from .models import Employee
+
+import gmaps_api
 
 # Create your views here.
 
-# TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
-@login_required
-def index(request, day=date.today().strftime('%A')):
-    Customer = apps.get_model('customers.Customer')
-    # The following line will get the logged-in user (if there is one) within any view function
-    logged_in_user = request.user
-    try:
-        # This line will return the customer record of the logged-in user if one exists
-        logged_in_employee = Employee.objects.get(user=logged_in_user)
+def parse_date(day) -> date:
+    weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
+    if day in weekdays:
         todays_date = date.today()
-        todays_date = todays_date if day == todays_date.strftime('%A') else date(1892,1,1)
+        todays_index = todays_date.weekday()
+        day_index = weekdays.index(day)
+        difference = day_index - todays_index
+        return date(todays_date.year, todays_date.month, todays_date.day + difference)
+    else:
+        return datetime.strptime(day, '%Y-%m-%d').date()
 
-        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date).order_by('last_name')
-
-        context = {
-            'logged_in_employee': logged_in_employee,
-            'today': day,
-            'customers': todays_customers,
-            'gmaps': GOOGLE_API_LINK,
-            'center': average_latlng(todays_customers, logged_in_employee.zip_code)
-
-        }
-        return render(request, 'employees/index.html', context)
-    except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse('employees:create'))
+@login_required
+def index(request):
+    today = date.today()
+    return HttpResponseRedirect(reverse('employees:select_day', args=(today,)))
 
 def confirm_pickup(request, id):
     Customer = apps.get_model('customers.Customer')
@@ -49,28 +38,28 @@ def confirm_pickup(request, id):
     customer.save()
     return HttpResponseRedirect(reverse('employees:index'))
 
-def select_day(request, day): # FIXME: REFACTOR INTO index.html
-    Customer = apps.get_model('customers.Customer') 
-    # The following line will get the logged-in user (if there is one) within any view function
-    logged_in_user = request.user
+def select_day(request, day):
+    Customer = apps.get_model('customers.Customer')
+    display_date = parse_date(day)
+    day = display_date.strftime("%A")
     try:
-        # This line will return the customer record of the logged-in user if one exists
-        logged_in_employee = Employee.objects.get(user=logged_in_user)
-
-        todays_date = date.today()
-        todays_date = todays_date if day == todays_date.strftime('%A') else date(1892,1,1)
-
-        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=todays_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=todays_date, suspend_end__gte=todays_date).exclude(date_of_last_pickup=todays_date).order_by('last_name')
-
+        logged_in_employee = Employee.objects.get(user = request.user)
+        todays_customers = Customer.objects.filter(Q(zip_code=logged_in_employee.zip_code), Q(one_time_pickup=display_date) | Q(weekly_pickup=day)).exclude(suspend_start__lte=display_date, suspend_end__gte=display_date).exclude(date_of_last_pickup=display_date).order_by('last_name')
         context = {
             'logged_in_employee': logged_in_employee,
             'today': day,
-            'customers': todays_customers
+            'customers': todays_customers,
+            'gmaps': gmaps_api.LINK,
+            'center': gmaps_api.average_latlng(todays_customers, logged_in_employee.zip_code)
         }
-        return render(request, 'employees/select_day.html', context)
+        return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
-    # return HttpResponseRedirect(reverse('employees:index', args=(day,)))
+
+def toggle_pickups(request, day):
+    logged_in_employee: Employee = Employee.objects.get(user = request.user)
+    logged_in_employee.toggle_pickups()
+    return HttpResponseRedirect(reverse('employees:select_day', args=(day,)))
 
 @login_required
 def create(request):
@@ -110,6 +99,6 @@ def customer_details(request, id):
     customer = Customer.objects.get(pk=id)
     context = {
         'customer': customer,
-        'gmaps': GOOGLE_API_LINK
+        'gmaps': gmaps_api.LINK
     }
     return render(request, 'employees/details.html', context)
