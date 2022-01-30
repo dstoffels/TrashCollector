@@ -10,7 +10,7 @@
 
 <div style="width: 100%; height: 400px" id="map" class="mb-5 mt-5 img-thumbnail"></div>
 
-<table class="table center-table table-dark table-bordered">
+<table class="table center-table table-dark">
   <tbody>
     <tr>
       <td>Address:</td>
@@ -25,12 +25,18 @@
         <td>{{customer.weekly_pickup}}</td>
     </tr>
     <tr>
-        <td>Date of Last Pickup:</td>
+      <td>Date of Last Pickup:</td>
+      {% if customer.date_of_last_pickup %}
         <td>{{customer.date_of_last_pickup}}</td>
+        {% else %}<td>-</td>
+        {% endif %}
     </tr>
     <tr>
         <td>One-Time Pickup:</td>
+        {% if customer.one_time_pickup %}
         <td>{{customer.one_time_pickup}}</td>
+        {% else %}<td>-</td>
+        {% endif %}
     </tr>
     <tr>
         <td>Service Suspended:</td>
@@ -39,9 +45,9 @@
     
 </tbody>
 </table>
-<a class="btn btn-primary float-end" type="button"
+{% comment %} <a class="btn btn-primary float-end" type="button"
       href="{% url 'employees:confirm_pickup' customer.id %}">Confirm
-      pickup</a>
+      pickup</a> {% endcomment %}
 {% else %}
 <p>You are at the employee home page, but you are not logged in.</p>
 <a href="{% url 'login' %}">Log In</a>

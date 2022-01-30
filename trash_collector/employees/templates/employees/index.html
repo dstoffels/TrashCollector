@@ -56,9 +56,9 @@
   <tbody>
     {% for customer in customers %}
     <tr>
-      <td><a class="btn btn-basic text-white ps-0 pe-5" href="{% url 'employees:details' customer.id %}">{{customer.first_name}} {{customer.last_name}}</a></td>
-      <td><a class="btn btn-basic text-white ps-0 pe-5" href="{% url 'employees:details' customer.id %}">{{customer.address}}, {{customer.city}}, {{customer.state}}</a></td>
-      <td><a class="btn btn-basic text-white pe-5" href="{% url 'employees:details' customer.id %}">{{customer.zip_code}}</a></td>
+      <td class="p-0"><a class="btn btn-basic text-white ps-0 pe-5" href="{% url 'employees:details' customer.id %}">{{customer.first_name}} {{customer.last_name}}</a></td>
+      <td class="p-0"><a class="btn btn-basic text-white ps-0 pe-5" href="{% url 'employees:details' customer.id %}">{{customer.address}}, {{customer.city}}, {{customer.state}}</a></td>
+      <td class="p-0"><a class="btn btn-basic text-white pe-5" href="{% url 'employees:details' customer.id %}">{{customer.zip_code}}</a></td>
       <td>
         {% if customer.pickup_confirmed %}
         <div class="float-end align-middle pe-1 pt-2 pb-2 text-success">
