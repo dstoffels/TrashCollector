@@ -1,7 +1,7 @@
 import requests
 from api_keys import GOOGLE_MAPS_API_KEY
 
-GOOGLE_API_LINK = f'https://maps.googleapis.com/maps/api/js?key={GOOGLE_MAPS_API_KEY}&callback=initMap&v=weekly'
+LINK = f'https://maps.googleapis.com/maps/api/js?key={GOOGLE_MAPS_API_KEY}&callback=initMap&v=weekly'
 
 class LatLng:
   def __init__(self, lat, lng):

@@ -17,7 +17,19 @@
       <th>Customer Name</th>
       <th>Address</th>
       <th>Zip Code</th>
-      <th></th>
+      <th>
+        <form id="toggle_pickups" action="{% url 'employees:toggle_pickups' today %}">
+          <div class="form-check form-switch float-end">
+              {% if logged_in_employee.pickups_active %}
+              <input class="form-check-input" type="checkbox" id="mySwitch" name="pickups" checked onclick="document.getElementById('toggle_pickups').submit()">
+              <label class="form-check-label" for="mySwitch">End Pickups</label>
+              {% else %}
+              <input class="form-check-input" type="checkbox" id="mySwitch" name="pickups" onclick="document.getElementById('toggle_pickups').submit()">
+              <label class="form-check-label" for="mySwitch">Begin Pickups</label>
+              {% endif %}
+        </form>
+      </div>
+    </th>
     </tr>
   </thead>
   <tbody>
@@ -26,10 +38,18 @@
       <td><a href="{% url 'employees:details' customer.id %}">{{customer.first_name}} {{customer.last_name}}</a></td>
       <td>{{customer.address}}, {{customer.city}}, {{customer.state}}</td>
       <td>{{customer.zip_code}}</td>
-      <td><a class="btn btn-primary float-end" type="button"
-          href="{% url 'employees:confirm_pickup' customer.id %}">Confirm
-          pickup</a>
-    </tr></a>
+      <td>
+        {% if logged_in_employee.pickups_active %}
+        <a class="btn btn-primary float-end" type="button" href="{% url 'employees:confirm_pickup' customer.id %}">
+          Confirm pickup
+        </a>
+        {% else %}
+        <a class="btn btn-primary float-end disabled" type="button" disabled>
+          Confirm pickup
+        </a>
+        {% endif %}
+      </td>
+    </tr>
     {% endfor %}
   </tbody>
 </table>
@@ -73,4 +93,3 @@
 </script>
 <script src="{{gmaps}}" async></script>
 {% endblock %}
-
