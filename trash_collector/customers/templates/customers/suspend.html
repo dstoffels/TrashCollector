@@ -11,11 +11,11 @@
     {% csrf_token %}
     <div class="mb-3 mt-3">
         <label for "start" class="form-label col-form-label-lg">Start Date:</label>
-            <input type="date" name="start" id="start" class="form-control form-control-lg">
+            <input required type="date" name="start" id="start" class="form-control form-control-lg">
     </div>
     <div class="mb-3 mt-3">
         <label for "end" class="form-label col-form-label-lg">End Date:</label>
-            <input type="date" name="end" id="end" class="form-control form-control-lg">
+            <input required type="date" name="end" id="end" class="form-control form-control-lg">
     </div>
     <div class="mb-3 mt-3 text-center">
         <input type="submit" value="Submit" class="btn btn-primary mt-3 btn-lg">
