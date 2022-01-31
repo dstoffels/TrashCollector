@@ -13,9 +13,12 @@ from .helpers import parse_date
 import gmaps_api
 
 # Create your views here.
+anchor = ''
 
 @login_required
 def index(request):
+    global anchor
+    anchor = ''
     today = date.today()
     return HttpResponseRedirect(reverse('employees:select_day', args=(today,)))
 
@@ -25,6 +28,8 @@ def confirm_pickup(request, id, selected_date):
     customer.date_of_last_pickup = selected_date
     customer.balance += 20
     customer.save()
+    global anchor 
+    anchor = 'index-table'
     return HttpResponseRedirect(reverse('employees:select_day', args=(selected_date,)))
 
 def select_day(request, day=''):
@@ -32,6 +37,7 @@ def select_day(request, day=''):
 
     display_date = parse_date(request.POST['selected_date']) if request.method == 'POST' else parse_date(day)
     day = display_date.strftime("%A")
+    global anchor
 
     try:
         logged_in_employee = Employee.objects.get(user = request.user)
@@ -44,16 +50,22 @@ def select_day(request, day=''):
             'customers': todays_customers,
             'today': day,
             'selected_date': display_date,
+            'anchor': anchor,
             'gmaps': gmaps_api.LINK,
             'center': gmaps_api.average_latlng(todays_customers, logged_in_employee.zip_code)
         }
+
+        anchor = ''
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
 
+
 def toggle_pickups(request, day):
     logged_in_employee: Employee = Employee.objects.get(user = request.user)
     logged_in_employee.toggle_pickups()
+    global anchor 
+    anchor = 'index-table'
     return HttpResponseRedirect(reverse('employees:select_day', args=(day,)))
 
 @login_required

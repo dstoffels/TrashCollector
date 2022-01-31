@@ -1,3 +1,7 @@
+body {
+	scroll-behavior: auto;
+}
+
 .errorlist {
 	list-style-type: none;
 	padding: 0;
@@ -10,8 +14,12 @@
 	color: #6c757d !important;
 }
 
-.datepicker {
-	padding: none;
+#weekday-selector:hover {
+	background-color: rgb(211, 211, 211);
+}
+
+.datepicker:hover {
+	background-color: rgb(211, 211, 211);
 }
 
 .datepicker::-webkit-datetime-edit {
