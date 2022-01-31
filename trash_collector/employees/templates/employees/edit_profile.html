@@ -7,22 +7,26 @@
 {% block content %}
 <br />
 <div class="w-50">
-<form action="{% url 'employees:edit_profile' %}" method="post" class="text-start">
-    {% csrf_token %}
-    <div class="mb-3 mt-3">
-    <label for "first_name" class="form-label">First Name:</label>
-    <input type="text" class="form-control form-control-lg" name="first_name" id="first_name" value="{{logged_in_employee.first_name}}">
-    </div>
-    <div class="mb-3 mt-3">
-    <label for "last_name" class="form-label">Last Name:</label>
-    <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" value="{{logged_in_employee.last_name}}">
-    </div>
-    <div class="mb-3 mt-3">
-    <label for "zip_code" class="form-label">Zip Code:</label>
-    <input type="text" class="form-control form-control-lg" name="zip_code" id="zip_code" value="{{logged_in_employee.zip_code}}">
-    </div>
-    <input type="submit" value="Submit" class="btn btn-primary mt-3 btn-lg">
-</form>
+    <form action="{% url 'employees:edit_profile' %}" method="post" class="text-start">
+        {% csrf_token %}
+        <div class="mb-3 mt-3">
+            <label for "first_name" class="form-label">First Name:</label>
+            <input required type="text" class="form-control form-control-lg" name="first_name" id="first_name"
+                value="{{logged_in_employee.first_name}}">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for "last_name" class="form-label">Last Name:</label>
+            <input required type="text" class="form-control form-control-lg" name="last_name" id="last_name"
+                value="{{logged_in_employee.last_name}}">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for "zip_code" class="form-label">Zip Code:</label>
+            <input required type="text" class="form-control form-control-lg" name="zip_code" id="zip_code"
+                value="{{logged_in_employee.zip_code}}">
+        </div>
+        <div class="text-center">
+            <input type="submit" value="Submit" class="btn btn-primary mt-3 btn-lg">
+        </div>
+    </form>
 </div>
 {% endblock %}
-

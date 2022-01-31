@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block head %}<link href="{% static '/styles.css'%}" rel="stylesheet">{% endblock %}
+{% block head %}
+<link href="{% static '/styles.css'%}" rel="stylesheet">{% endblock %}
 
 {% block title %} Login Page {% endblock %}
 
@@ -9,10 +10,13 @@
 {% block content %}
 <br />
 <div class="w-50 mt-3">
-  <form method="post" class="text-start login-form">
+  <form id="login-form" method="post" class="text-start">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-primary mt-3 w-25 mb-5" type="submit">Log In</button>
+    <div class="text-center">
+
+      <button class="btn btn-primary btn-lg mt-3 w-25 mb-5" type="submit">Log In</button>
+    </div>
   </form>
 </div>
 <br />

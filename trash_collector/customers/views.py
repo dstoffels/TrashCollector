@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,10 +7,8 @@ from datetime import date
 
 from .models import Customer
 import stripe
-import json
 from django.views.decorators.csrf import csrf_exempt
 from api_keys import STRIPE_TEST_API_KEY
-import time
 
 @login_required
 def index(request):
@@ -127,25 +125,15 @@ def success(request):
     logged_in_customer.save()
     context = { 'customer': logged_in_customer }
 
-    return render(request, 'customers/success.html', context)
-
-def calculate_order_amount(items):
-    # Replace this constant with a calculation of the order's amount
-    # Calculate the order total on the server to prevent
-    # people from directly manipulating the amount on the client
-    return 1400
-
+    return render(request, 'customers/checkout.html', context)
 
 @login_required
 @csrf_exempt
 def create_payment(request):
     logged_in_user = request.user
     logged_in_customer = Customer.objects.get(user=logged_in_user)
-
     stripe.api_key = STRIPE_TEST_API_KEY
-# try:
-    # data = json.loads(request.data)
-    # Create a PaymentIntent with the order amount and currency
+
     intent = stripe.PaymentIntent.create(
         payment_method_types = ['card'],
         amount= logged_in_customer.balance * 100,
@@ -154,5 +142,3 @@ def create_payment(request):
     return JsonResponse({
         'clientSecret': intent['client_secret']
     })
-# except Exception as e:
-#     return JsonResponse({"error": str(e)}), 403

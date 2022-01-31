@@ -13,13 +13,13 @@
         <div class="col">
             <div class="mb-3 mt-3">
             <label for "first_name" class="form-label">First Name:</label>
-            <input type="text" class="form-control" name="first_name" id="first_name">
+            <input required type="text" class="form-control" name="first_name" id="first_name">
             </div>
         </div>
         <div class="col">
             <div class="mb-3 mt-3">
             <label for "last_name" class="form-label">Last Name:</label>
-            <input type="text" class="form-control" name="last_name" id="last_name">
+            <input required type="text" class="form-control" name="last_name" id="last_name">
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <div class="col">
             <div class="mb-3 mt-3">
             <label for "address" class="form-label">Address:</label>
-            <input type="text" class="form-control" name="address" id="address">
+            <input required type="text" class="form-control" name="address" id="address">
             </div>
         </div>
     </div>
@@ -35,14 +35,14 @@
         <div class="col-5">
             <div class="mb-3 mt-3">
             <label for "city" class="form-label">City:</label>
-            <input type="text" class="form-control" name="city" id="city">
+            <input required type="text" class="form-control" name="city" id="city">
             </div>
         </div>
         <div class="col-2">
             <div class="mb-3 mt-3">
             <label for "state" class="form-label">State:</label>
-                <select class="form-select" name="state" id="state"> 
-                    <option selected disabled value="{{logged_in_customer.state}}">- -</option>
+                <select required class="form-select" name="state" id="state"> 
+                    <option selected disabled value="">- -</option>
                     <option value="AL">AL</option>
                     <option value="AK">AK</option>
                     <option value="AZ">AZ</option>
@@ -100,13 +100,14 @@
         <div class="col-2">
             <div class="mb-3 mt-3">
             <label for "zip_code" class="form-label">Zip Code:</label>
-            <input type="text" class="form-control" name="zip_code" id="zip_code">
+            <input required type="text" class="form-control" name="zip_code" id="zip_code">
             </div>
         </div>
         <div class="col">
             <div class="mb-3 mt-3">
             <label for "weekly_pickup" class="form-label">Weekly Pickup Day:</label>
-                <select class="form-select" name="weekly_pickup" id="weekly_pickup">
+                <select required class="form-select" name="weekly_pickup" id="weekly_pickup">
+                    <option disabled selected value="">Select..</option>
                     <option value="Monday">Monday</option>
                     <option value="Tuesday">Tuesday</option>
                     <option value="Wednesday">Wednesday</option>
@@ -120,7 +121,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <div class="mb-3 mt-3">
+            <div class="mb-3 mt-3 text-center">
                 <input type="submit" value="Register" class="btn btn-primary mt-3 w-25">
             </div>
         </div>

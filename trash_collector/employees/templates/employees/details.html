@@ -13,33 +13,33 @@
 <table class="table center-table table-dark">
   <tbody>
     <tr>
-      <td>Address:</td>
+      <th>Address:</th>
       <td>{{customer.address}}, {{customer.city}}, {{customer.state}}</td>
     </tr>
     <tr>
-      <td>Zip Code:</td>
+      <th>Zip Code:</th>
       <td>{{customer.zip_code}}</td>
     </tr>
     <tr>
-        <td>Weekly Pickup Day:</td>
+        <th>Weekly Pickup Day:</th>
         <td>{{customer.weekly_pickup}}</td>
     </tr>
     <tr>
-      <td>Date of Last Pickup:</td>
+      <th>Date of Last Pickup:</th>
       {% if customer.date_of_last_pickup %}
         <td>{{customer.date_of_last_pickup}}</td>
         {% else %}<td>-</td>
         {% endif %}
     </tr>
     <tr>
-        <td>One-Time Pickup:</td>
+        <th>One-Time Pickup:</th>
         {% if customer.one_time_pickup %}
         <td>{{customer.one_time_pickup}}</td>
         {% else %}<td>-</td>
         {% endif %}
     </tr>
     <tr>
-        <td>Service Suspended:</td>
+        <th>Service Suspended:</th>
         <td>{{customer.suspension_start_date}}-{{customer.suspension_end_date}}</td>
     </tr>
     

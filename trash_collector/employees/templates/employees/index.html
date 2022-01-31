@@ -56,14 +56,13 @@
   <tbody>
     {% for customer in customers %}
     <tr>
-      <td class="p-0"><a class="btn btn-basic text-white ps-0 pe-5" href="{% url 'employees:details' customer.id %}">{{customer.first_name}} {{customer.last_name}}</a></td>
-      <td class="p-0"><a class="btn btn-basic text-white ps-0 pe-5" href="{% url 'employees:details' customer.id %}">{{customer.address}}, {{customer.city}}, {{customer.state}}</a></td>
-      <td class="p-0"><a class="btn btn-basic text-white pe-5" href="{% url 'employees:details' customer.id %}">{{customer.zip_code}}</a></td>
-      <td>
+      <td class="pe-0 ps-0"><a class="btn btn-basic text-white ps-0" href="{% url 'employees:details' customer.id %}">{{customer.first_name}} {{customer.last_name}}</a></td>
+      <td class="pe-0 ps-0"><a class="btn btn-basic text-white ps-0" href="{% url 'employees:details' customer.id %}">{{customer.address}}, {{customer.city}}, {{customer.state}}</a></td>
+      <td class="pe-0 ps-0"><a class="btn btn-basic text-white" href="{% url 'employees:details' customer.id %}">{{customer.zip_code}}</a></td>
+      <td >
         {% if customer.pickup_confirmed %}
-        <div class="float-end align-middle pe-1 pt-2 pb-2 text-success">
-          Pickup Completed
-        </div> 
+          <a class="btn btn-basic text-success float-end p-0" href="{% url 'employees:details' customer.id %}">Pickup Completed</a>
+
         {% else %}
           {% if logged_in_employee.pickups_active %}
           <a class="btn btn-primary float-end" type="button" href="{% url 'employees:confirm_pickup' customer.id selected_date %}">
@@ -107,7 +106,7 @@
     ]
 
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 12,
+      zoom: 14,
       center: { lat:{{ center.lat }}, lng: {{center.lng}} }
     });
 

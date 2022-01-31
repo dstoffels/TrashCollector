@@ -25,6 +25,9 @@ class Customer(models.Model):
         if self.date_of_last_pickup:
             self.pickup_confirmed = date <= self.date_of_last_pickup
             self.save()
+        else:
+            self.pickup_confirmed = False
+            self.save()
 
     def convert_address(self):
         location = geolocate(self.address, self.city, self.state, self.zip_code)
