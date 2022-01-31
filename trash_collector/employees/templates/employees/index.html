@@ -12,7 +12,7 @@
 <div class="d-flex justify-content-center">
 
   <div class="dropdown m-2 mb-4">
-    <button type="button" class="btn btn-secondary btn-lg dropdown-toggle text-dark" data-bs-toggle="dropdown">
+    <button type="button" class="btn btn-light btn-lg dropdown-toggle text-dark" data-bs-toggle="dropdown">
       {{today}}, {{selected_date}}
     </button>
     <ul class="dropdown-menu">
@@ -27,7 +27,7 @@
   </div>
   <form id="datepicker-form" action="{% url 'employees:select_day' 'Monday' %}" method="post">
     {% csrf_token %}
-    <input class='btn btn-secondary btn-lg datepicker m-2' type="date" name="selected_date"
+    <input class='btn btn-light btn-lg datepicker m-2' type="date" name="selected_date"
       onchange="document.getElementById('datepicker-form').submit() ">
   </form>
 </div>
